@@ -1,10 +1,10 @@
 package io.github.ugandaairforce;
 
-public class Main {
+import javax.security.auth.login.LoginException;
 
-	public static UgandaBot INSTANCE;
+public class Main extends Helper {
 
-	public static void main(String[] args) {
-		INSTANCE = new UgandaBot();
+	public static void main(String[] args) throws LoginException {
+		getBot().setupBot();
 	}
 }

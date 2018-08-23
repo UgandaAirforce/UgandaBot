@@ -8,31 +8,18 @@ import net.dv8tion.jda.core.exceptions.RateLimitedException;
 import javax.security.auth.login.LoginException;
 
 public class UgandaBot {
+	private static final UgandaBot INSTANCE = new UgandaBot();
 
-	JDA jda;
-	String token;
-
-	public UgandaBot() {
-
-		try {
-			init();
-		} catch (LoginException | RateLimitedException | InterruptedException exception) {
-			exception.printStackTrace();
-		}
+	public static UgandaBot getInstance() {
+		return INSTANCE;
 	}
 
-    private void init() throws LoginException, RateLimitedException, InterruptedException {
+	private JDA jda;
 
-		System.out.println("Initializing bot...");
-    	UgandaBotProperties.getProperty("bot.token");
-
-    	if (token != null) {
-			try {
-				jda = new JDABuilder(AccountType.BOT).setToken("token").build();
-			} catch (LoginException e) {
-				e.printStackTrace();
-			}
-		}
-
+    public void setupBot() throws LoginException {
+    	this.jda = new JDABuilder(AccountType.BOT)
+				.setToken(Helper.getToken())
+				.setAutoReconnect(true)
+				.build();
 	}
 }
